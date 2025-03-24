@@ -19,29 +19,29 @@ def mine_block(k, prev_hash, transactions):
         return b'\x00'
 
     # TODO your code to find a nonce here
-    m = hashlib.sha256()
+    m=hashlib.sha256()
     m.update(prev_hash)
-    for tx in transactions:
+    for tx in transactions: 
         m.update(tx.encode('utf-8'))
-    base_data = m.digest()  
+    base_data = m.digest()
 
-    target_suffix = '0' * k  
-    attempts = 0
+    target_suffix = '0'*k
+    attempts=0
 
-    while True:
-        nonce_int = random.randint(0, 2**32 - 1)
+    while True: 
+        nonce_int = random.randint(0,2**32-1)
         nonce_bytes = nonce_int.to_bytes(4, byteorder='big')
 
-        m_nonce = hashlib.sha256()
+        m_nonce=hashlib.sha256()
         m_nonce.update(prev_hash)
-        for tx in transactions:
+        for tx in transactions: 
             m_nonce.update(tx.encode('utf-8'))
         m_nonce.update(nonce_bytes)
         hash_result = m_nonce.digest()
 
         bin_hash = bin(int.from_bytes(hash_result, byteorder='big'))[2:].zfill(256)
-        if bin_hash.endswith(target_suffix):
-            return nonce_bytes
+        if bin_hash.endswith(target_suffix): 
+            return nonce_bytes 
 
 
 def get_random_lines(filename, quantity):
